@@ -64,11 +64,11 @@ markdown语法
 
 #插入链接
 
-[markdown教程](https://blog.csdn.net/VistorsYan/article/details/109138602){:target="_blank"}
+[markdown教程](https://blog.csdn.net/VistorsYan/article/details/109138602)
 
 或者
 
-<https://blog.csdn.net/VistorsYan/article/details/109138602>{:target="_blank"}
+<https://blog.csdn.net/VistorsYan/article/details/109138602>
 
 #插入图片
 
@@ -86,8 +86,8 @@ markdown语法
 
 `int a = 0;`//英文版的数字1左边的那个符号。。。。
 
-``` 紧跟着可以写上用的什么语言，也可以不用写。
+​```紧跟着可以写上用的什么语言，也可以不用写。
 int a = 1;
 int b = 2;
 
-``` 结尾与开头一样
+​```结尾与开头一样
