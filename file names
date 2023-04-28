@@ -1,0 +1,25 @@
+#codeing=utf-8
+#医院   中日友好医院
+#作者    邹昆
+import os
+import xlwt
+img_path = 'C:\\Users\\zouku\\Desktop\\广中医\\大学生创业\\大创舌诊数据\\中医舌诊作业\\tonguedata\\data\\xuxing'
+img_list = os.listdir(img_path)
+#print('img_list: ', img_list)
+
+with open('testlist.txt', 'w') as f:
+    for img_name in img_list:
+        f.write(img_name + '\n')
+
+# 创建一个新的 Excel 文件
+workbook = xlwt.Workbook()
+
+# 添加一个工作表
+worksheet = workbook.add_sheet('Sheet1')
+
+# 写入文件名
+for i, filename in enumerate(img_list):
+    worksheet.write(i, 0, filename)
+
+# 保存文件
+workbook.save('xuxingnames.xls')
