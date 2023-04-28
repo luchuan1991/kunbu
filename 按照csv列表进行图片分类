@@ -1,0 +1,43 @@
+#codeing=utf-8
+#医院   中日友好医院
+#作者    邹昆
+import os
+import xlrd
+
+# 设置需要读取的 Excel 文件路径和 sheet 名称
+excel_path = 'C:\\Users\\zouku\\Desktop\\xxsxzoukun.xls'
+sheet_name = 'Sheet1'
+
+# 设置图片原始路径和保存路径
+src_dir = 'D:\\BaiduNetdiskDownload\\data_new\\face_classify\\face_mix'
+dst_dir_xx = 'D:\\BaiduNetdiskDownload\\data_new\\new\\face_classify\\xx'
+dst_dir_sx = 'D:\\BaiduNetdiskDownload\\data_new\\new\\face_classify\\sx'
+
+# 打开 Excel 文件并获取指定 sheet 对象
+workbook = xlrd.open_workbook(excel_path)
+sheet = workbook.sheet_by_name(sheet_name)
+
+# 遍历 Excel 中第二列图片文件名称
+for rowx in range(1, sheet.nrows):
+    file_name = str(int(sheet.cell_value(rowx, 1)))
+
+    # 拼接图片完整路径
+    src_path = os.path.join(src_dir, file_name + '.jpg')  # 假设图片扩展名为.jpg
+
+    # 判断该图片所属分类，不在 xx 和 sx 之间则跳过
+    file_type = str(sheet.cell_value(rowx, 0))
+    if file_type not in ['xx', 'sx']:
+        continue
+
+    # 根据分类创建目标文件夹
+    dst_dir = dst_dir_xx if file_type == 'xx' else dst_dir_sx
+    if not os.path.exists(dst_dir):
+        os.makedirs(dst_dir)
+
+    # 拼接目标路径
+    dst_path = os.path.join(dst_dir, file_name + '.jpg')
+
+    # 重命名并移动文件
+    os.rename(src_path, dst_path)
+
+print('图片分类处理完成。')
