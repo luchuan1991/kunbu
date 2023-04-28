@@ -16,12 +16,9 @@ markdown语法
 ##### 五级标题
 ###### 六级标题
 <br/>
-*斜体文本*
-_斜体文本_
+*斜体文字*
 **粗体文本**
-__粗体文本__
-***粗斜体文本***
-___粗斜体文本___
+
 
 <br/>
 ***
@@ -67,11 +64,11 @@ ___粗斜体文本___
 
 #插入链接
 
-[markdown教程](https://blog.csdn.net/VistorsYan/article/details/109138602){target="_blank"}
+[markdown教程](https://blog.csdn.net/VistorsYan/article/details/109138602){:target="_blank"}
 
 或者
 
-<https://blog.csdn.net/VistorsYan/article/details/109138602>{target="_blank"}
+<https://blog.csdn.net/VistorsYan/article/details/109138602>{:target="_blank"}
 
 #插入图片
 
