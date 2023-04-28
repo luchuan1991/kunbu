@@ -1,0 +1,80 @@
+import cv2
+import os
+
+# 定义脏腑名称
+organs = ['胆', '肺', '心', '肾', '脾', '胃', '大肠', '小肠', '胆经', '肺经', '手太阳经', '心经', '手少阴心经', '三焦经', '膀胱经', '肾经', '足厥阴肝经', '脾经', '胃经', '大肠经', '小肠经', '督脉经', '任脉经', '冲脉经']
+
+def calculate_acne(image_path):
+    """
+    计算单张图片的痤疮数量和面积，并根据轮廓位置分析面部脏腑归属
+    """
+    # 加载图片
+    img = cv2.imread(image_path)
+
+    # 灰度化、高斯滤波、边缘检测
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    blur = cv2.GaussianBlur(gray, (5, 5), 0)
+    edges = cv2.Canny(blur, 50, 150)
+
+    # 查找所有轮廓
+    contours, _ = cv2.findContours(edges, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+    # 分析轮廓位置，确定面部脏腑归属
+    for contour in contours:
+        M = cv2.moments(contour)
+        if M["m00"] != 0:
+            cX = int(M["m10"] / M["m00"])
+            cY = int(M["m01"] / M["m00"])
+        else:
+            cX, cY = 0, 0
+
+        if cY < 200:  # 面额部
+            if cX < 200:  # 左侧
+                organ = '肝'
+            elif cX > 450:  # 右侧
+                organ = '胆'
+            else:  # 中央
+                organ = '胃'
+        elif cY < 400:  # 眼周部
+            if cX < 200:  # 左侧
+                organ = '肾'
+            elif cX > 450:  # 右侧
+                organ = '肺'
+            else:  # 中央
+                organ = '心'
+        else:  # 面颊、下巴部
+            if cX < 200:  # 左侧
+                organ = '脾'
+            elif cX > 450:  # 右侧
+                organ = '小肠'
+            else:  # 中央
+                organ = '大肠'
+
+    # 计算痤疮数量和面积
+    count, area = 0, 0
+    for contour in contours:
+        area += cv2.contourArea(contour)
+        count += 1
+
+    # 返回痤疮数量、面积、面部脏腑归属
+    return count, area, organ
+
+
+def batch_process(folder_path):
+    """
+    批量处理图片并输出结果到CSV文件
+    """
+    with open('result.csv', 'w') as f:
+        f.write('filename, count, area, organ\n')
+        # 遍历文件夹中所有jpeg和bmp图片
+        for filename in os.listdir(folder_path):
+            if filename.endswith('.jpeg') or filename.endswith('.bmp')or filename.endswith('.jpg'):
+                image_path = os.path.join(folder_path, filename)
+                count, area, organ = calculate_acne(image_path)
+                f.write('{}, {}, {:.2f}, {}\n'.format(filename, count, area, organ))
+
+
+# 示例程序，将D:/BaiduNetdiskDownload/img/dan/20220922文件夹中的图片进行批量处理
+if __name__ == '__main__':
+    folder_path = 'D:/BaiduNetdiskDownload/img/dan/20220922'
+    batch_process(folder_path)
