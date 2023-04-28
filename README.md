@@ -68,28 +68,24 @@ ___粗斜体文本___
 
 
 
-​```紧跟着可以写上用的什么语言，也可以不用写。
+```紧跟着可以写上用的什么语言，也可以不用写。
 int a = 1;
 int b = 2;
 
-​```结尾与开头一样
+```结尾与开头一样
 
 #插入链接
 
-[markdown教程](https://blog.csdn.net/VistorsYan/article/details/109138602)
+[markdown教程](https://blog.csdn.net/VistorsYan/article/details/109138602){target="_blank"}
 
 或者
 
-<https://blog.csdn.net/VistorsYan/article/details/109138602>
+<https://blog.csdn.net/VistorsYan/article/details/109138602>{target="_blank"}
 
 #插入图片
 
 ![sci图片](https://img2.baidu.com/it/u=3636271128,3125915827&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=284)
 
-
-比如我此文章的图片：
-
-![sci图片](https://img2.baidu.com/it/u=3636271128,3125915827&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=284)
 
 #插入表格
 |  表头   | 表头  | 表头 | 表头 |
