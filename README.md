@@ -65,14 +65,6 @@ ___粗斜体文本___
 >> + 第二项
 >> + 第三项
 
-`int a = 0;`//英文版的数字1左边的那个符号。。。。
-
-``` 紧跟着可以写上用的什么语言，也可以不用写。
-int a = 1;
-int b = 2;
-
-``` 结尾与开头一样
-
 #插入链接
 
 [markdown教程](https://blog.csdn.net/VistorsYan/article/details/109138602){target="_blank"}
@@ -94,3 +86,11 @@ int b = 2;
 
 #markdown支持HTML元素
 使用 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd> 重启电脑
+
+`int a = 0;`//英文版的数字1左边的那个符号。。。。
+
+``` 紧跟着可以写上用的什么语言，也可以不用写。
+int a = 1;
+int b = 2;
+
+``` 结尾与开头一样
