@@ -1,6 +1,6 @@
 #codeing=utf-8
 #医院   中日友好医院
-#作者    邹昆
+#作者    昆布
 import os
 import xlrd
 
