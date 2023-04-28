@@ -1,6 +1,6 @@
 #codeing=utf-8
 #医院   中日友好医院
-#作者    邹昆
+#作者   昆布
 import os
 import xlwt
 img_path = 'C:\\Users\\zouku\\Desktop\\广中医\\大学生创业\\大创舌诊数据\\中医舌诊作业\\tonguedata\\data\\xuxing'
