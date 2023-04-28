@@ -84,12 +84,12 @@ int b = 2;
 
 #插入图片
 
-![图片描述，可写可不写，但是中括号要有](图片地址，本地链接或者URL地址。)
+![sci图片](https://img2.baidu.com/it/u=3636271128,3125915827&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=284)
 
 
 比如我此文章的图片：
 
-![markdown](https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1613194509,3683268681&fm=26&gp=0.jpg)
+![sci图片](https://img2.baidu.com/it/u=3636271128,3125915827&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=284)
 
 #插入表格
 |  表头   | 表头  | 表头 | 表头 |
