@@ -1,2 +1,4 @@
 # luchuan的代码世界
-study everydaiy
+列表
+**读取文件夹里的图片名
+**按照csv列表进行图片分类
