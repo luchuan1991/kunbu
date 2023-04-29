@@ -1,0 +1,46 @@
+import cv2
+import os
+
+# 设置工作目录和文件夹
+WORK_DIR = r'D:\zoukun'
+if not os.path.exists(WORK_DIR):
+    os.mkdir(WORK_DIR)
+FILES = os.listdir(WORK_DIR)
+
+# 定义函数对图像进行彩色均衡
+def equalize_color_image(img):
+    # 转换为HSV格式
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    # 均衡化S通道，即使颜色更加鲜明
+    hsv[:,:,1] = cv2.equalizeHist(hsv[:,:,1])
+    # 转回BGR格式
+    equalized = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
+    return equalized
+
+# 循环处理图片
+for f in FILES:
+    # 读取图片
+    img_path = os.path.join(WORK_DIR, f)
+    img = cv2.imread(img_path)
+    # 彩色均衡
+    equalized = equalize_color_image(img)
+    # 灰度化
+    gray = cv2.cvtColor(equalized, cv2.COLOR_BGR2GRAY)
+    # 阈值分割
+    ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
+    # 去除背景噪点
+    kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (3, 3))
+    binary = cv2.dilate(binary, kernel)
+    binary = cv2.erode(binary, kernel)
+    # 连通域分析，去除较小的连通块
+    output = cv2.connectedComponentsWithStats(binary, connectivity=8, ltype=cv2.CV_32S)
+    (numLabels, labels, stats, centroids) = output
+    for i in range(numLabels):
+        x, y, w, h, area = stats[i]
+        if area < 200:
+            binary[labels == i] = 0
+    # 归一化
+    result = cv2.normalize(img, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U)
+    # 保存处理结果
+    save_path = os.path.join(WORK_DIR, 'processed_' + f)
+    cv2.imwrite(save_path, result)
