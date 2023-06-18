@@ -1,0 +1,41 @@
+import cv2
+
+# 加载图像文件
+im = cv2.imread('D:/zoukun/sxxx/222.png')
+
+# 转换颜色空间为灰度图像
+imgray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
+
+# 对灰度图像进行高斯模糊处理
+imgray = cv2.GaussianBlur(imgray, (5, 5), 0)
+
+# 初始化背景子器
+fgbg = cv2.createBackgroundSubtractorMOG2()
+
+# 对每个像素进行背景差分
+fgmask = fgbg.apply(imgray)
+
+# 反转前景掩码，将背景标记为黑色，前景标记为白色
+fgmask = cv2.bitwise_not(fgmask)
+
+# 根据阈值对前景掩码进行二值化处理
+ret,thresh = cv2.threshold(fgmask,50,255,cv2.THRESH_BINARY)
+
+# 使用形态学操作对前景掩码进行膨胀，合并相邻像素
+kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
+morph = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, kernel)
+
+# 找到前景掩码中所有的轮廓
+contours, hierarchy = cv2.findContours(morph, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+# 找到最大的轮廓作为舌头
+c = max(contours, key=cv2.contourArea)
+
+# 获取裁剪矩形的坐标和尺寸
+x, y, w, h = cv2.boundingRect(c)
+
+# 根据裁剪矩形裁剪图像
+crop = im[y:y + h, x:x + w]
+
+# 保存裁剪后的图像
+cv2.imwrite('D:/zoukun/sxxx/222_crop.png', crop)
